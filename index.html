@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+  <title>Read-A-Meter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="lib/jquery.mobile-1.4.5.min.css">
+  <link rel="stylesheet" href="read-a-meter.css">
+  <script src="lib/jquery-1.11.3.min.js"></script>
+  <script src="lib/jquery.mobile-1.4.5.min.js"></script>
+  <script src="read-a-meter.js"></script>
+</head>
+<body>
+  <div data-role="page" id="main-page">
+
+    <div data-role="header">
+      <h1>Read-A-Meter</h1>
+      <a href="#" id="meter-new-btn" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-btn-icon-notext ui-icon-plus">New</a>
+    </div>
+
+    <div data-role="navbar">
+      <ul>
+       <li><a href="#" class="ui-btn-active">all</a></li>
+       <li><a href="#" data-ajax="false">electric</a></li>
+       <li><a href="#" data-ajax="false">water</a></li>
+       <li><a href="#" data-ajax="false">gas</a></li>
+      </ul>
+    </div>
+
+    <div data-role="content">
+      <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+      </ul>
+    </div>
+
+  <div data-role="footer">
+    <h4>Version: 0.0</h4>
+  </div>
+
+    <!-- confirm popup -->
+    <div id="confirm" class="ui-content" data-role="popup" data-theme="a">
+      <p id="question">Are you sure you want to delete:</p>
+      <div class="ui-grid-a">
+        <div class="ui-block-a">
+          <a id="confirm-delete-yes" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Yes</a>
+        </div>
+        <div class="ui-block-b">
+          <a id="confirm-delete-cancel" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Cancel</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- new popup -->    
+    <div id="meter-new-popup" class="ui-content" data-role="popup" data-theme="a">
+      <fieldset id="meter-new-type" data-role="controlgroup" data-type="horizontal" data-mini="true">
+        <legend>Type:</legend>
+        <input name="radio-choice-1" id="radio-choice-1" value="electric" checked="checked" type="radio">
+        <label for="radio-choice-1">electric</label>
+        <input name="radio-choice-1" id="radio-choice-2" value="water" type="radio">
+        <label for="radio-choice-2">water</label>
+        <input name="radio-choice-1" id="radio-choice-3" value="gas" type="radio">
+        <label for="radio-choice-3">gas</label>
+      </fieldset>    
+
+      <label for="number-pattern">Value:</label>
+      <input name="number" pattern="[0-9]*" id="number-pattern" value="" type="number">
+
+      <div class="ui-grid-a">
+        <div class="ui-block-a">
+          <a id="meter-new-ok" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">OK</a>
+        </div>
+        <div class="ui-block-b">
+          <a id="meter-new-cancel" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Cancel</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
