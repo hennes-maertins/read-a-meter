@@ -29,9 +29,8 @@ $( document ).ready(function () {
   entries = JSON.parse( window.localStorage.getItem( "entries" ) );
   if ( entries == null ) entries = [];
   $.each(entries, function ( entry_index, entry_value ) {
-    var entry = new Entry(entry_value.type, entry_value.value, new Date(entry_value.date)),
-  	     li = entry.li();
-    $( "#list" ).prepend(li);
+    var entry = new Entry(entry_value.type, entry_value.value, new Date(entry_value.date));
+    $( "#list" ).prepend(entry.li());
     $( "#list" ).listview("refresh");
   });
 
@@ -49,11 +48,10 @@ $( document ).on( "pagecreate", "#main-page", function() {
   	 var meterType = $(" #meter-new-type input:checked ").val(),
   	     meterValue = $(" #number-pattern ").val(),
   	     meterDate = new Date(),
-  	     entry = new Entry(meterType, meterValue, meterDate),
-  	     li = entry.li();
-    $( "#list" ).prepend(li);
+  	     entry = new Entry(meterType, meterValue, meterDate);
+    $( "#list" ).prepend(entry.li());
     $( "#list" ).listview("refresh");
-    entries.push({"type":meterType, "value":meterValue, "date":meterDate});
+    entries.push(entry);
     window.localStorage.setItem("entries", JSON.stringify(entries));
   });
 
