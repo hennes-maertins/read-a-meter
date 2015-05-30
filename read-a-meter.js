@@ -2,26 +2,35 @@
 about delete see http://demos.jquerymobile.com/1.4.5/swipe-list/
 */
 
+function Entry (type, value, date) {
+  this.type = type;
+  this.value = value;
+  this.date = date;
+}
+
+Entry.prototype.li = function() {
+  var li = $('<li>'),
+      liContent = $('<a href="#">'),
+      liContentType = $('<p class="meter-type"><strong>'+ this.type +'</strong></p>'),
+      liContentValue = $('<p class="meter-value"><strong>'+ this.value +'</strong></p>'),
+      liContentDateTime = $('<p class="ui-li-aside"><strong>'+ this.date.toLocaleString() +'</strong></p>');
+  liContent.append(liContentType);
+  liContent.append(liContentValue);
+  liContent.append(liContentDateTime);
+  li.append(liContent);
+  li.append('<a href="#" class="delete">Delete</a>');
+  return li;
+}
+
 var entries;
 
 $( document ).ready(function () {
 
   entries = JSON.parse( window.localStorage.getItem( "entries" ) );
-  if ( entries == null ) entries = new Array ();
+  if ( entries == null ) entries = [];
   $.each(entries, function ( entry_index, entry_value ) {
-  	 var meterType = entry_value.type,
-  	     meterValue = entry_value.value,
-  	     meterDate = new Date(entry_value.date),
-  	     li = $('<li>'),
-  	     liContent = $('<a href="#">'),
-  	     liContentType = $('<p class="meter-type"><strong>'+ meterType +'</strong></p>'),
-  	     liContentValue = $('<p class="meter-value"><strong>'+ meterValue +'</strong></p>'),
-  	     liContentDateTime = $('<p class="ui-li-aside"><strong>'+ meterDate.toLocaleString() +'</strong></p>');
-    liContent.append(liContentType);
-    liContent.append(liContentValue);
-    liContent.append(liContentDateTime);
-    li.append(liContent);
-    li.append('<a href="#" class="delete">Delete</a>');
+    var entry = new Entry(entry_value.type, entry_value.value, new Date(entry_value.date)),
+  	     li = entry.li();
     $( "#list" ).prepend(li);
     $( "#list" ).listview("refresh");
   });
@@ -40,16 +49,8 @@ $( document ).on( "pagecreate", "#main-page", function() {
   	 var meterType = $(" #meter-new-type input:checked ").val(),
   	     meterValue = $(" #number-pattern ").val(),
   	     meterDate = new Date(),
-  	     li = $('<li>'),
-  	     liContent = $('<a href="#">'),
-  	     liContentType = $('<p class="meter-type"><strong>'+ meterType +'</strong></p>'),
-  	     liContentValue = $('<p class="meter-value"><strong>'+ meterValue +'</strong></p>'),
-  	     liContentDateTime = $('<p class="ui-li-aside"><strong>'+ meterDate.toLocaleString() +'</strong></p>');
-    liContent.append(liContentType);
-    liContent.append(liContentValue);
-    liContent.append(liContentDateTime);
-    li.append(liContent);
-    li.append('<a href="#" class="delete">Delete</a>');
+  	     entry = new Entry(meterType, meterValue, meterDate),
+  	     li = entry.li();
     $( "#list" ).prepend(li);
     $( "#list" ).listview("refresh");
     entries.push({"type":meterType, "value":meterValue, "date":meterDate});
