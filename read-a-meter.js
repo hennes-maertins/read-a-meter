@@ -30,13 +30,18 @@ Entry.prototype.li = function() {
 
 var entries;
 
+// 'all', 'electric', 'water', 'gas'
+var filter = 'all';
+
 // *** Functions ***
 
 function refreshList () {
   $( "#list" ).empty();
   $.each(entries, function ( entry_index, entry_value ) {
-    var entry = new Entry(entry_value.id, entry_value.type, entry_value.value, new Date(entry_value.date));
-    $( "#list" ).prepend(entry.li());
+    if (filter == 'all' || filter == entry_value.type) {
+      var entry = new Entry(entry_value.id, entry_value.type, entry_value.value, new Date(entry_value.date));
+      $( "#list" ).prepend(entry.li());
+    }
   });
   $( "#list" ).listview("refresh");
 }
@@ -51,9 +56,28 @@ $( document ).ready(function () {
 
 $( document ).on( "pagecreate", "#main-page", function() {
 
+  // *** NAVBAR ***
+
+  $( "#navbar-a-all" ).on( "click", function () {
+    filter = 'all';
+    refreshList();
+  });
+  $( "#navbar-a-electric" ).on( "click", function () {
+    filter = 'electric';
+    refreshList();
+  });
+  $( "#navbar-a-water" ).on( "click", function () {
+    filter = 'water';
+    refreshList();
+  });
+  $( "#navbar-a-gas" ).on( "click", function () {
+    filter = 'gas';
+    refreshList();
+  });
+
   // *** NEW ***
   
-  $( "#meter-new-btn ").on( "click", function () {
+  $( "#meter-new-btn" ).on( "click", function () {
     $( "#meter-new-popup" ).popup( "open" );
   });
   
