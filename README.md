@@ -21,7 +21,9 @@ Open checked out file [www/index.html](www/index.html) in a web browser.
 ### Developer build (debug)
 
     phonegap build android
+
 or for more detailed console output (if cordova has been installed explicitly)
+
     cordova build android
 
 This compiles to an apk file in `platforms/android/build/outputs/apk/android-debug.apk`.
