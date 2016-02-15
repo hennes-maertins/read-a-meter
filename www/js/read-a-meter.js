@@ -49,6 +49,11 @@ function refreshList () {
 // *** Events ***
 
 $( document ).ready(function () {
+  // Load selected filter
+  filter = window.localStorage.getItem( "filter" );
+  if ( filter == null ) filter = 'all';
+  $( "#navbar-a-" + filter ).addClass( "ui-btn-active" );
+  // Load entries
   entries = JSON.parse( window.localStorage.getItem( "entries" ) );
   if ( entries == null ) entries = [];
   refreshList();
@@ -60,18 +65,22 @@ $( document ).on( "pagecreate", "#main-page", function() {
 
   $( "#navbar-a-all" ).on( "click", function () {
     filter = 'all';
+    window.localStorage.setItem("filter", filter);
     refreshList();
   });
   $( "#navbar-a-electric" ).on( "click", function () {
     filter = 'electric';
+    window.localStorage.setItem("filter", filter);
     refreshList();
   });
   $( "#navbar-a-water" ).on( "click", function () {
     filter = 'water';
+    window.localStorage.setItem("filter", filter);
     refreshList();
   });
   $( "#navbar-a-gas" ).on( "click", function () {
     filter = 'gas';
+    window.localStorage.setItem("filter", filter);
     refreshList();
   });
 
